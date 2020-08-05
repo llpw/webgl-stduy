@@ -1,7 +1,9 @@
 var VSHADER_SOURCE = `
+    attribute vec4 a_Position;
+    attribute float a_PointSize;
     void main() {
-        gl_Position = vec4(0.0, 0.0, 0.0, 1.0);
-        gl_PointSize = 10.0;
+        gl_Position = a_Position;
+        gl_PointSize = a_PointSize;
     }
 `;
 
@@ -18,6 +20,15 @@ function main() {
     if (!gl) return;
 
     if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) return;
+
+    var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+    var a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+    if (a_Position<0) {
+        return;
+    }
+
+    gl.vertexAttrib3f(a_Position, 0.0, 0.0, 0.0);
+    gl.vertexAttrib1f(a_PointSize, 10.0);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
