@@ -65,7 +65,7 @@ function initVertexBuffers(gl) {
 
 function draw(gl, angle, n, modelMatrix, u_modelMatrix) {
     modelMatrix.setRotate(angle, 0, 0, 1);
-    
+    modelMatrix.translate(0.35, 0, 0);
     gl.uniformMatrix4fv(u_modelMatrix, false, modelMatrix.elements);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, n);
@@ -77,6 +77,6 @@ function animate(angle) {
     var elapsed = now - g_last;
     g_last = now;
 
-    var newAngle = angle + (ANGLE_SPEED * elapsed);
+    var newAngle = angle + (ANGLE_SPEED * elapsed)/1000;
     return newAngle % 360;
 }
