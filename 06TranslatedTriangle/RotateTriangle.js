@@ -51,9 +51,21 @@ function main() {
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     ])
-
     var u_matrix = gl.getUniformLocation(gl.program, 'u_matrix');
-    gl.uniformMatrix4fv(u_matrix, false, matrix);
+    //gl.uniformMatrix4fv(u_matrix, false, matrix);
+
+    var matrix_s = new Matrix4();
+    // matrix_s.setScale(1.5, 1.2, 1.2);
+
+    // matrix_s.setRotate(30, 0, 1, 0);
+
+    matrix_s.setTranslate(0.5, 0.5, 0.0);
+    matrix_s.scale(0.5, 0.5, 0.5);
+
+    // matrix_s.setScale(0.5, 0.5, 0.5);
+    // matrix_s.translate(0.5, 0.5, 0.0);
+    gl.uniformMatrix4fv(u_matrix, false, matrix_s.elements);
+    
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
