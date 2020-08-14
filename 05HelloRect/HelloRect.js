@@ -7,8 +7,11 @@ var VSHADER_SOURCE = `
 `;
 
 var FSHADER_SOURCE = `
+    precision mediump float;
+    uniform float u_Width;
+    uniform float u_Height;
     void main() {
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        gl_FragColor = vec4(gl_FragCoord.x/u_Width, gl_FragCoord.y/u_Height, 0.0, 1.0);
     }
 `;
 
@@ -50,6 +53,12 @@ function initVertexBuffers(gl) {
     gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
     // 开启
     gl.enableVertexAttribArray(a_Position);
+
+    var u_Width = gl.getUniformLocation(gl.program, 'u_Width');
+    console.log(gl.drawingBufferWidth, gl.drawingBufferHeight);
+    gl.uniform1f(u_Width, gl.drawingBufferWidth);
+    var u_Height = gl.getUniformLocation(gl.program, 'u_Height');
+    gl.uniform1f(u_Height, gl.drawingBufferHeight);
 
     return n;
 }
